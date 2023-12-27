@@ -1,0 +1,74 @@
+
+.noteListContainer {
+  width: 80%;
+  margin: auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.noteListTitle {
+  font-size: 24px;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.noteList {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background-color: #fff;
+}
+
+.noteList p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #555;
+}
+
+.noteHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.noteTitle {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.noteActions {
+  display: flex;
+  gap: 8px;
+}
+
+.noteContent {
+  padding: 16px;
+  font-size: 16px;
+  color: #555;
+}
+.noteListEditButton,
+.noteListDeleteButton {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.noteListDeleteButton {
+  background-color: #f44336;
+}
+
+.noteListEditButton:hover,
+.noteListDeleteButton:hover {
+  opacity: 0.8;
+}
