@@ -5,6 +5,9 @@ import CreateNote from '../../components/CreateNote/CreateNote';
 import NoteList from '../../components/NoteList/NoteList';
 import EditNote from '../../components/EditNote/EditNote';
 import { useNoteContext } from '../../context/NoteContext';
+import './Home.css';
+
+
 
 const Home = () => {
   const { notes, getNotes, startEditingNote, stopEditingNote, editNoteId } = useNoteContext();
