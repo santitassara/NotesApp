@@ -142,7 +142,7 @@ exports.deleteNote = async (req, res) => {
 
 exports.addTagToNote = async (req, res) => {
   const { id } = req.params;
-  const { tagName } = req.body;
+  const tagArray = req.body;
 
   try {
     const note = await Note.findByPk(id);
@@ -150,14 +150,16 @@ exports.addTagToNote = async (req, res) => {
       return res.status(404).json({ error: 'Note not found' });
     }
 
-    let tag = await Tag.findOne({ where: { name: tagName } });
-    if (!tag) {
-      tag = await Tag.create({ name: tagName });
+    for (const tagName of tagArray) {
+      let tag = await Tag.findOne({ where: { name: tagName } });
+      if (!tag) {
+        tag = await Tag.create({ name: tagName });
+      }
+
+      await note.addTag(tag);
     }
 
-    await note.addTag(tag);
-
-    res.json({ message: 'Tag added to note successfully' });
+    res.json({ message: 'Tags added to note successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
