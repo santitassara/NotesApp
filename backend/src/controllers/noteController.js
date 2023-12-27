@@ -24,16 +24,35 @@ exports.getAllNotes = async (req, res) => {
   }
 };
 exports.createNote = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, tags } = req.body;
 
   try {
-    const newNote = await Note.create({ title, content });
-    res.json(newNote);
+ 
+    const note = await Note.create({ title, content });
+
+    if (tags && tags.length > 0) {
+      const createdTags = await Promise.all(
+        tags.map(async (tagName) => {
+          let tag = await Tag.findOne({ where: { name: tagName } });
+          if (!tag) {
+            tag = await Tag.create({ name: tagName });
+          }
+          await note.addTag(tag);
+          return tag;
+        })
+      );
+
+      res.json({ message: 'Note created successfully with tags', note, tags: createdTags });
+    } else {
+      res.json({ message: 'Note created successfully', note });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).send('Server Error');
   }
-};exports.updateNote = async (req, res) => {
+};
+
+exports.updateNote = async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
 
