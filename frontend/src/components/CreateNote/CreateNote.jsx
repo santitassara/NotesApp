@@ -6,20 +6,21 @@ const CreateNote = () => {
   const { createNote, addTagToNote } = useNoteContext();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [tag, setTag] = useState('');
+  const [tags, setTags] = useState('');
 
 
   const handleCreateNote = async () => {
     try {
-      const newData = { title, content };
-      if (tag.trim() !== '') {
-      
-        await addTagToNote(newData, tag);
-      } 
+
+      const tagArray = tags.split(/[,\s]+/);
+
+      const newData = { title, content, tags: tagArray };
+
       await createNote(newData);
 
     } catch (error) {
       console.error('Error creating note:', error);
+
     }
   };
 
@@ -34,7 +35,7 @@ const CreateNote = () => {
       <br />
       <br />
       <label>Tag: </label>
-      <input type="text"value={tag} onChange={(e) => setTag(e.target.value)} />
+      <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} />
       <br />
       <button className={"createNoteButton"} onClick={handleCreateNote}>Create Note</button>
     </div>

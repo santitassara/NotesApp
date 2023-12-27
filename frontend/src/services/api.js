@@ -14,20 +14,6 @@ export const createNote = async (data) => {
   }
 };
 
-// const url =  'http://localhost:3001/api';
-
-// export const createNote = async (data) => {
-//  await axios.post(`${url}/notes`,data)
-//  .then(
-//   response => console.log(response.data)
-//  ).catch(
-//   (error) =>{
-//     console.log(error);
-//   }
-//  )
- 
-// };
-
 
 export const getNotes = async () => {
   try {
@@ -73,9 +59,9 @@ export const deleteNote = async (id) => {
   }
 };
 
-export const addTagToNote = async (id, tagName) => {
+export const addTagToNote = async (id, tagArray) => {
   try {
-    const response = await api.put(`/notes/${id}/addtag`, { tagName });
+    const response = await api.put(`/notes/${id}/addtag`, tagArray);
     return response.data;
   } catch (error) {
     throw error;

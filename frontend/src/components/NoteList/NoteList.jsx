@@ -5,8 +5,13 @@ import { Link } from 'react-router-dom';
 import "./NoteList.css"
 
 const NoteList = ({ onEdit }) => {
-  const { notes, startEditingNote, deleteNote, archiveNote } = useNoteContext();
+  const { notes, startEditingNote, deleteNote, archiveNote, addTagToNote } = useNoteContext();
   const { getNotes } = useNoteContext();
+  const [isTag, setIsTag] = useState(false);
+  const [tags, setTags] = useState('');
+  const [showTagInputNoteId, setShowTagInputNoteId] = useState(null);
+
+
 
   const handleDeleteNote = (id) => {
     const isConfirmed = window.confirm('Are you sure you want to delete this note? this action is irreversible');
@@ -21,6 +26,22 @@ const NoteList = ({ onEdit }) => {
       archiveNote(id);
 
     }
+  };
+
+  const handleShowTagInput = (noteId, tags) => {
+
+
+    setShowTagInputNoteId(noteId)
+    // const tagArray = tags.split(/[,\s]+/);
+
+    // addTagToNote(noteId, tagArray);
+  };
+
+  const handleAddTag = (noteId, tags) => {
+
+     const tagArray = tags.split(/[,\s]+/);
+
+     addTagToNote(noteId, tagArray);
   };
 
 
@@ -46,6 +67,20 @@ const NoteList = ({ onEdit }) => {
               <h3 className="noteTitle">{note.title}</h3>
             </div>
             <p className="noteContent">{note.content}</p>
+
+            {showTagInputNoteId === note.id && (
+              <div className={'tagInputContainer'}>
+                <label>Tags: </label>
+                <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} />
+                <button className={'tagInputButton'} onClick={() => handleAddTag(note.id, tags)}>
+                  Add Tags
+                </button>
+                <button className={'tagInputCancelButton'} onClick={() => handleShowTagInput(null)}>
+                  Cancel
+                </button>
+              </div>
+            )}
+
             <div className="noteActions">
               <button className={'noteListEditButton'} onClick={() => startEditingNote(note.id)}>
                 Edit
@@ -59,7 +94,14 @@ const NoteList = ({ onEdit }) => {
               >
                 Archive
               </button>
+              <button
+                className={'noteListAddTagButton'}
+                onClick={() => handleShowTagInput(note.id)}
+              >
+                Add Tags
+              </button>
             </div>
+
           </div>
         ))}
       </div>

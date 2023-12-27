@@ -104,3 +104,40 @@ align-items: center;
 .noteListArchiveButton:hover{
   opacity: 0.8;
 }
+
+.tagInputContainer {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.tagInputContainer label {
+  font-weight: bold;
+}
+
+.tagInputContainer input {
+  margin-right: 1em;
+}
+
+.tagInputButton,
+.tagInputCancelButton {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 8px 12px;
+  margin-right: .7em;
+  border: none;
+  border-radius: .4em;
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+.tagInputCancelButton {
+  background-color: #f44336;
+}
+
+.tagInputButton:hover,
+.tagInputCancelButton:hover {
+  opacity: 0.8;
+}
