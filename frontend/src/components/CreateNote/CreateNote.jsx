@@ -3,7 +3,7 @@ import { useNoteContext } from '../../context/NoteContext';
 import './CreateNote.css'
 
 const CreateNote = () => {
-  const { createNote } = useNoteContext();
+  const { createNote, addTagToNote } = useNoteContext();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [tag, setTag] = useState('');
@@ -12,6 +12,10 @@ const CreateNote = () => {
   const handleCreateNote = async () => {
     try {
       const newData = { title, content };
+      if (tag.trim() !== '') {
+      
+        await addTagToNote(newData, tag);
+      } 
       await createNote(newData);
 
     } catch (error) {

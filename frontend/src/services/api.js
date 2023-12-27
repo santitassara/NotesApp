@@ -73,4 +73,15 @@ export const deleteNote = async (id) => {
   }
 };
 
+export const addTagToNote = async (id, tagName) => {
+  try {
+    const response = await api.put(`/notes/${id}/addtag`, { tagName });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+
+
 export default api;

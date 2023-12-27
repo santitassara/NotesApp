@@ -1,6 +1,13 @@
 
 import React, { createContext, useState, useContext } from 'react';
-import { getNotes as fetchNotes, createNote as postNote, updateNote as putNote, deleteNote as eraseNote, archiveNote as archive, unarchiveNote as unarchive  } from '../services/api';
+import { getNotes as fetchNotes, 
+  createNote as postNote, 
+  updateNote as putNote, 
+  deleteNote as eraseNote, 
+  archiveNote as archive, 
+  unarchiveNote as unarchive,
+  addTagToNote as addTag,
+    } from '../services/api';
 
 const NoteContext = createContext();
 
@@ -82,6 +89,16 @@ export const NoteProvider = ({ children }) => {
     }
   };
 
+  const addTagToNote = async (noteId, tagName) => {
+    try {
+      await addTag(noteId, tagName);
+    
+     // getNotes();
+    } catch (error) {
+      console.error('Error adding tag to note:', error);
+    }
+  };
+
 
 
   const contextValue = {
@@ -95,6 +112,7 @@ export const NoteProvider = ({ children }) => {
     deleteNote,
     archiveNote,
     unarchiveNote,
+    addTagToNote,
   };
 
   return <NoteContext.Provider value={contextValue}>{children}</NoteContext.Provider>;
