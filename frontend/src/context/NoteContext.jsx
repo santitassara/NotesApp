@@ -1,6 +1,6 @@
 
 import React, { createContext, useState, useContext } from 'react';
-import { getNotes as fetchNotes, createNote as postNote, updateNote as putNote, deleteNote as eraseNote } from '../services/api';
+import { getNotes as fetchNotes, createNote as postNote, updateNote as putNote, deleteNote as eraseNote, archiveNote as archive, unarchiveNote as unarchive  } from '../services/api';
 
 const NoteContext = createContext();
 
@@ -58,6 +58,30 @@ export const NoteProvider = ({ children }) => {
     }
   };
 
+  const archiveNote = async (id) => {
+    try {
+      await archive(id);
+     
+      setNotes((prevNotes) =>
+        prevNotes.map((note) => (note.id === id ? { ...note, status: 'archived' } : note))
+      );
+    } catch (error) {
+      console.error('Error archiving note:', error);
+    }
+  };
+
+  const unarchiveNote = async (id) => {
+    try {
+      await unarchive(id);
+ 
+      setNotes((prevNotes) =>
+        prevNotes.map((note) => (note.id === id ? { ...note, status: 'active' } : note))
+      );
+    } catch (error) {
+      console.error('Error unarchiving note:', error);
+    }
+  };
+
 
 
   const contextValue = {
@@ -69,6 +93,8 @@ export const NoteProvider = ({ children }) => {
     startEditingNote,
     stopEditingNote,
     deleteNote,
+    archiveNote,
+    unarchiveNote,
   };
 
   return <NoteContext.Provider value={contextValue}>{children}</NoteContext.Provider>;

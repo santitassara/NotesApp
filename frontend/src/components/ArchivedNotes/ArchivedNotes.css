@@ -1,5 +1,4 @@
-
-.noteListContainer {
+.archivedNotesContainer {
   width: 80%;
   margin: auto;
   padding: 20px;
@@ -8,31 +7,13 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.noteListHeader{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-align-items: center;
-}
-
-.archivedNotesButton{
-  background-color: #abb740;
-  color: #050505;
-  padding: 8px 12px;
-  margin-right: 8px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.noteListTitle {
+.archivedNotesTitle {
   font-size: 24px;
   margin-bottom: 16px;
   color: #333;
 }
 
-.noteList {
+.archivedNote {
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
@@ -40,7 +21,7 @@ align-items: center;
   background-color: #fff;
 }
 
-.noteList p {
+.archivedNote p {
   margin: 8px 0;
   font-size: 16px;
   color: #555;
@@ -65,42 +46,28 @@ align-items: center;
   gap: 8px;
 }
 
-.noteContent {
-  padding: 16px;
-  font-size: 16px;
-  color: #555;
-}
-.noteListEditButton,
-.noteListDeleteButton {
+.archivedNoteUnarchiveButton {
   background-color: #4caf50;
   color: #fff;
   padding: 8px 12px;
-  margin-right: 8px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
 }
 
-.noteListDeleteButton {
-  background-color: #f44336;
-}
-
-.noteListEditButton:hover,
-.noteListDeleteButton:hover {
+.archivedNoteUnarchiveButton:hover {
   opacity: 0.8;
 }
-
-.noteListArchiveButton{
-  background-color: #49508f;
+.backButton{
+  background-color: #000000;
   color: #fff;
   padding: 8px 12px;
-  margin-right: 8px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
 }
-.noteListArchiveButton:hover{
+.backButton:hover {
   opacity: 0.8;
 }

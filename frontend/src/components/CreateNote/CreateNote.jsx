@@ -6,12 +6,14 @@ const CreateNote = () => {
   const { createNote } = useNoteContext();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [tag, setTag] = useState('');
+
 
   const handleCreateNote = async () => {
     try {
       const newData = { title, content };
       await createNote(newData);
-      
+
     } catch (error) {
       console.error('Error creating note:', error);
     }
@@ -25,6 +27,10 @@ const CreateNote = () => {
       <br />
       <label>Content: </label>
       <textarea value={content} onChange={(e) => setContent(e.target.value)} />
+      <br />
+      <br />
+      <label>Tag: </label>
+      <input type="text"value={tag} onChange={(e) => setTag(e.target.value)} />
       <br />
       <button className={"createNoteButton"} onClick={handleCreateNote}>Create Note</button>
     </div>
