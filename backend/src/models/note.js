@@ -18,4 +18,8 @@ const Note = sequelize.define('Note', {
   },
 });
 
+const Tag = require('./tag');
+Note.belongsToMany(Tag, { through: 'NoteTag' });
+Tag.belongsToMany(Note, { through: 'NoteTag' });
+
 module.exports = Note;
