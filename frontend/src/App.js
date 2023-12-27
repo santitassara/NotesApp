@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './views/Home/Home';
 import NotFound from './views/NotFound/NotFound';
-import ArchivedNotes from './components/ArchivedNotes/ArchivedNotes.jsx';
+import ArchivedNotes from './components/archivedNotes/ArchivedNotes.jsx';
 import { NoteProvider } from './context/NoteContext';
 
 function App() {
