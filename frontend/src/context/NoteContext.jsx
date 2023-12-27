@@ -7,6 +7,7 @@ import { getNotes as fetchNotes,
   archiveNote as archive, 
   unarchiveNote as unarchive,
   addTagToNote as addTag,
+  removeTagFromNote as removeTag,
     } from '../services/api';
 
 const NoteContext = createContext();
@@ -99,6 +100,15 @@ export const NoteProvider = ({ children }) => {
     }
   };
 
+  const removeTagFromNote = async (noteId, tagName) => {
+    try {
+      await removeTag(noteId, tagName);
+   
+    } catch (error) {
+      console.error('Error removing tag from note:', error);
+    }
+  };
+  
 
 
   const contextValue = {
@@ -113,6 +123,7 @@ export const NoteProvider = ({ children }) => {
     archiveNote,
     unarchiveNote,
     addTagToNote,
+    removeTagFromNote,
   };
 
   return <NoteContext.Provider value={contextValue}>{children}</NoteContext.Provider>;

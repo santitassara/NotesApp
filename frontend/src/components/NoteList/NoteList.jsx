@@ -5,11 +5,14 @@ import { Link } from 'react-router-dom';
 import "./NoteList.css"
 
 const NoteList = ({ onEdit }) => {
-  const { notes, startEditingNote, deleteNote, archiveNote, addTagToNote } = useNoteContext();
+  const { notes, startEditingNote, deleteNote, archiveNote, addTagToNote, removeTagFromNote } = useNoteContext();
   const { getNotes } = useNoteContext();
   const [isTag, setIsTag] = useState(false);
   const [tags, setTags] = useState('');
   const [showTagInputNoteId, setShowTagInputNoteId] = useState(null);
+  const [showTagSelectNoteId, setShowTagSelectNoteId] = useState(null);
+  const [selectedTag, setSelectedTag] = useState(null);
+
 
 
 
@@ -22,28 +25,42 @@ const NoteList = ({ onEdit }) => {
 
   const handleToggleArchive = (id, status) => {
     if (status === 'active') {
-
+      
       archiveNote(id);
-
+      alert("Note archived successfully.")
     }
   };
 
   const handleShowTagInput = (noteId, tags) => {
+    setShowTagInputNoteId(noteId);
+    setShowTagSelectNoteId(null);
+  };
 
-
-    setShowTagInputNoteId(noteId)
-    // const tagArray = tags.split(/[,\s]+/);
-
-    // addTagToNote(noteId, tagArray);
+  const handleShowTagSelect = (noteId, tags) => {
+    setShowTagInputNoteId(null);
+    setShowTagSelectNoteId(noteId);
   };
 
   const handleAddTag = (noteId, tags) => {
-
-     const tagArray = tags.split(/[,\s]+/);
-
-     addTagToNote(noteId, tagArray);
+    const tagArray = tags.split(/[,\s]+/);
+    addTagToNote(noteId, tagArray);
   };
 
+  const handleRemoveTag = async (noteId, tags) => {
+    try {
+      if (!selectedTag) {
+        alert("You must select one tag in order to remove it.")
+        return;
+      }
+
+      await removeTagFromNote(noteId, selectedTag);
+      alert("Tag removed successfully.")
+      setSelectedTag(null);
+      setShowTagSelectNoteId(null);
+    } catch (error) {
+      console.error('Error removing tag from note:', error);
+    }
+  };
 
   useEffect(() => {
     getNotes();
@@ -80,6 +97,28 @@ const NoteList = ({ onEdit }) => {
                 </button>
               </div>
             )}
+             {showTagSelectNoteId === note.id && (
+              <div className={'tagSelectContainer'}>
+                <label>Tags: </label>
+                <select
+                  value={selectedTag || ''}
+                  onChange={(e) => setSelectedTag(e.target.value)}
+                >
+                  <option value="">Select Tag</option>
+                  {note.tags.map((tag) => (
+                    <option key={tag} value={tag}>
+                      {tag}
+                    </option>
+                  ))}
+                </select>
+                <button className={'tagSelectButton'} onClick={() => handleRemoveTag(note.id, selectedTag)}>
+                  Remove Tag
+                </button>
+                <button className={'tagSelectCancelButton'} onClick={() => setShowTagSelectNoteId(null)}>
+                  Cancel
+                </button>
+              </div>
+            )}
 
             <div className="noteActions">
               <button className={'noteListEditButton'} onClick={() => startEditingNote(note.id)}>
@@ -99,6 +138,12 @@ const NoteList = ({ onEdit }) => {
                 onClick={() => handleShowTagInput(note.id)}
               >
                 Add Tags
+              </button>
+              <button
+                className={'noteListRemoveButton'}
+                onClick={() => handleShowTagSelect(note.id)}
+              >
+                Remove Tags
               </button>
             </div>
 
