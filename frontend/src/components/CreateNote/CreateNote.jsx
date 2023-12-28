@@ -28,6 +28,9 @@ const CreateNote = () => {
     } catch (error) {
       console.error('Error creating note:', error);
     }
+    setTitle('');
+    setContent('')
+    setSelectedTags([])
   };
   
 

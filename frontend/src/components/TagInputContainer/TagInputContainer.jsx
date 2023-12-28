@@ -1,6 +1,8 @@
 import React from "react";
 
 const tagInputContainer = ({note,selectedTag,tagsList,setSelectedTag,handleAddTag,handleShowTagInput}) => {
+  const isTagValid = tagsList.includes(selectedTag);
+
   return (
     <div className={'tagInputContainer'}>
       <label>Tags: </label>
@@ -16,7 +18,7 @@ const tagInputContainer = ({note,selectedTag,tagsList,setSelectedTag,handleAddTa
           </option>
         ))}
       </select>
-      <button className={'tagInputButton'} onClick={() => handleAddTag(note.id, selectedTag)}>
+      <button className={'tagInputButton'} onClick={() => isTagValid && handleAddTag(note.id, selectedTag)}>
         Add Tag
       </button>
       <button className={'tagInputCancelButton'} onClick={() => handleShowTagInput(null)}>

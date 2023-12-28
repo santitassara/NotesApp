@@ -246,3 +246,22 @@ align-items: center;
   padding: 4px 8px;
   font-size: 12px;
 }
+
+
+.noNotesMessage {
+  color: #555; 
+  font-size: 3em;
+  margin-top: 20px;
+}
+
+.allNotesArchivedMessage {
+  color: #900;
+  font-size: 2em;
+  margin-top: 20px;
+}
+
+.noNotesWithTagMessage {
+  color: #555; 
+  font-size: 1.8em;
+  margin-top: 20px;
+}

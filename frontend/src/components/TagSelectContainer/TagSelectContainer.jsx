@@ -1,4 +1,6 @@
 import React from "react";
+import './TagSelectContainer.css'
+
 
 const tagInputContainer = ({note,selectedTag,tagsList,setSelectedTag,handleRemoveTag,setShowTagSelectNoteId}) => {
   return (

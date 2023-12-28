@@ -1,11 +1,12 @@
 
 .createNoteContainer {
-  width: 80%;
+  /* width: 80%; */
   margin: auto;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5em;
 }
 
 .createNoteContainer h2 {
@@ -23,7 +24,7 @@
 
 .createNoteContainer input,
 .createNoteContainer textarea {
-  width: 86%;
+  width: 90%;
   padding: 8px;
   margin-bottom: 16px;
   font-size: 16px;
