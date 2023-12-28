@@ -1,23 +1,20 @@
-
 import React, { useEffect, useState } from 'react';
 import { useNoteContext } from '../../context/NoteContext';
+import TagInputContainer from '../TagInputContainer/TagInputContainer'
+import TagSelectContainer from '../TagSelectContainer/TagSelectContainer'
 import { Link } from 'react-router-dom';
+import { tagsList } from '../../utils/tagList';
 import "./NoteList.css"
 
 const NoteList = ({ onEdit }) => {
   const { notes, startEditingNote, deleteNote, archiveNote, addTagToNote, removeTagFromNote } = useNoteContext();
   const { getNotes } = useNoteContext();
-  const [isTag, setIsTag] = useState(false);
-  const [tags, setTags] = useState('');
   const [showTagInputNoteId, setShowTagInputNoteId] = useState(null);
   const [showTagSelectNoteId, setShowTagSelectNoteId] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
 
-
-
-
   const handleDeleteNote = (id) => {
-    const isConfirmed = window.confirm('Are you sure you want to delete this note? this action is irreversible');
+    const isConfirmed = window.confirm('Are you sure you want to delete this note? This action is irreversible.');
     if (isConfirmed) {
       deleteNote(id);
     }
@@ -25,7 +22,6 @@ const NoteList = ({ onEdit }) => {
 
   const handleToggleArchive = (id, status) => {
     if (status === 'active') {
-      
       archiveNote(id);
       alert("Note archived successfully.")
     }
@@ -52,7 +48,6 @@ const NoteList = ({ onEdit }) => {
         alert("You must select one tag in order to remove it.")
         return;
       }
-
       await removeTagFromNote(noteId, selectedTag);
       alert("Tag removed successfully.")
       setSelectedTag(null);
@@ -82,44 +77,34 @@ const NoteList = ({ onEdit }) => {
           <div className={'noteList'} key={note.id}>
             <div className="noteHeader">
               <h3 className="noteTitle">{note.title}</h3>
+              <div className="tagBalloons">
+                {note.tags && note.tags.map((tag) => (
+                  <div key={tag} className="tagBalloon">{tag}</div>
+                ))}
+              </div>
             </div>
             <p className="noteContent">{note.content}</p>
 
             {showTagInputNoteId === note.id && (
-              <div className={'tagInputContainer'}>
-                <label>Tags: </label>
-                <input type="text" value={tags} onChange={(e) => setTags(e.target.value)} />
-                <button className={'tagInputButton'} onClick={() => handleAddTag(note.id, tags)}>
-                  Add Tags
-                </button>
-                <button className={'tagInputCancelButton'} onClick={() => handleShowTagInput(null)}>
-                  Cancel
-                </button>
-              </div>
+              <TagInputContainer
+                note={note}
+                tagsList={tagsList}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                handleAddTag={handleAddTag}
+                handleShowTagInput={handleShowTagInput}
+              />
             )}
-             {showTagSelectNoteId === note.id && (
-              <div className={'tagSelectContainer'}>
-                <label>Tags: </label>
-                <select
-                  value={selectedTag || ''}
-                  onChange={(e) => setSelectedTag(e.target.value)}
-                >
-                  <option value="">Select Tag</option>
-                  {note.tags.map((tag) => (
-                    <option key={tag} value={tag}>
-                      {tag}
-                    </option>
-                  ))}
-                </select>
-                <button className={'tagSelectButton'} onClick={() => handleRemoveTag(note.id, selectedTag)}>
-                  Remove Tag
-                </button>
-                <button className={'tagSelectCancelButton'} onClick={() => setShowTagSelectNoteId(null)}>
-                  Cancel
-                </button>
-              </div>
+            {showTagSelectNoteId === note.id && (
+              <TagSelectContainer
+                note={note}
+                tagsList={tagsList}
+                selectedTag={selectedTag}
+                setSelectedTag={setSelectedTag}
+                handleRemoveTag={handleRemoveTag}
+                setShowTagSelectNoteId={setShowTagSelectNoteId}
+              />
             )}
-
             <div className="noteActions">
               <button className={'noteListEditButton'} onClick={() => startEditingNote(note.id)}>
                 Edit
@@ -146,7 +131,6 @@ const NoteList = ({ onEdit }) => {
                 Remove Tags
               </button>
             </div>
-
           </div>
         ))}
       </div>

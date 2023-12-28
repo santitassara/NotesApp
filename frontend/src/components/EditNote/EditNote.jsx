@@ -23,7 +23,7 @@ const EditNote = () => {
     try {
       const updatedData = { title, content };
       await updateNote(editNoteId, updatedData);
-      stopEditingNote(); // Detener el modo de edición
+      stopEditingNote();
     } catch (error) {
       console.error('Error editing note:', error);
     }

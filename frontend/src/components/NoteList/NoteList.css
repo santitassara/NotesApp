@@ -152,7 +152,7 @@ align-items: center;
   font-weight: bold;
 }
 
-.tagInputContainer input {
+.tagInputContainer select {
   margin-right: 1em;
 }
 
@@ -214,4 +214,35 @@ align-items: center;
 .tagSelectButton:hover,
 .tagSelectCancelButton:hover {
   opacity: 0.8;
+}
+
+.noteListContainer {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.noteListHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.noteListTitle {
+  font-size: 24px;
+}
+
+.tagBalloons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.tagBalloon {
+  background-color: #4CAF50;
+  color: white;
+  border: 1px solid #4CAF50;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
 }

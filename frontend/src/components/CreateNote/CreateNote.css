@@ -23,7 +23,7 @@
 
 .createNoteContainer input,
 .createNoteContainer textarea {
-  width: 100%;
+  width: 86%;
   padding: 8px;
   margin-bottom: 16px;
   font-size: 16px;
@@ -44,4 +44,35 @@
 
 .createNoteButton:hover {
   opacity: 0.8;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tag {
+  padding: 8px;
+  margin: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tag.selected {
+  background-color: #4caf50;
+  color: #fff;
+  border-color: #4caf50;
+}
+
+.createNoteButton {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.createNoteButton:hover {
+  background-color: #45a049;
 }
