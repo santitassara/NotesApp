@@ -15,6 +15,7 @@ const ArchivedNotes = () => {
     getNotes();
   }, []);
 
+  
 
   const archivedNotes = notes.filter((note) => note.status === 'archived');
 
