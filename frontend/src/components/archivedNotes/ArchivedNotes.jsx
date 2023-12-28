@@ -16,7 +16,6 @@ const ArchivedNotes = () => {
   }, []);
 
 
-
   const archivedNotes = notes.filter((note) => note.status === 'archived');
 
   return (
@@ -27,11 +26,6 @@ const ArchivedNotes = () => {
           <div className={'archivedNote'} key={note.id}>
             <div className="noteHeader">
               <h3 className="noteTitle">{note.title}</h3>
-              <div className="tagBalloons">
-                {note.tags.map((tag) => (
-                  <div key={tag} className="tagBalloon">{tag}</div>
-                ))}
-              </div>
             </div>
             <p className="noteContent">{note.content}</p>
             <div className="noteActions">
