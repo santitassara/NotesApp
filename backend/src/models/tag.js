@@ -1,4 +1,3 @@
-// src/models/tag.js
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('./index');
