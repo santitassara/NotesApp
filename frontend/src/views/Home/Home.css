@@ -10,3 +10,17 @@ h1 {
   color: #333;
   margin-bottom: 20px;
 }
+
+.logout-button {
+  padding: 8px 16px;
+  background-color: #ff6347; 
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.logout-button:hover {
+  background-color: #d33a2e; 
+}

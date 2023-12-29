@@ -79,10 +79,25 @@ export const removeTagFromNote = async (id, tagName) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await api.post('/login', {
+    const response = await api.post('/auth/login', {
       username,
       password,
     });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const fetchProtectedData = async (authToken) => {
+  try {
+    //const authToken = localStorage.getItem('authToken');
+    const response = await api.get('/auth/protected', {
+      headers: {
+        'x-auth-token': `${authToken}`,
+      },
+    });
+
     return response;
   } catch (error) {
     throw error;

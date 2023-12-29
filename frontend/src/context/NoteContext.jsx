@@ -1,5 +1,5 @@
 
-import React, { createContext, useState, useContext } from 'react';
+import React, { createContext, useState, useContext, useEffect } from 'react';
 import { getNotes as fetchNotes, 
   createNote as postNote, 
   updateNote as putNote, 
@@ -9,6 +9,7 @@ import { getNotes as fetchNotes,
   addTagToNote as addTag,
   removeTagFromNote as removeTag,
   login as loginUser,
+  fetchProtectedData as authTokenCheck,
     } from '../services/api';
 
 const NoteContext = createContext();
@@ -21,6 +22,8 @@ export const NoteProvider = ({ children }) => {
   const [notes, setNotes] = useState([]);
 
   const [editNoteId, setEditNoteId] = useState(null);
+
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const getNotes = async () => {
     try {
@@ -113,12 +116,32 @@ export const NoteProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await loginUser(username, password);
-      // Puedes manejar la respuesta según tus necesidades (por ejemplo, almacenar el token en el estado).
-      return response;
+      localStorage.setItem('authToken', response.token);
+      //return response;
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;
     }
+  };
+
+  const fetchProtectedData = async () => {
+    try {
+      const authToken = localStorage.getItem('authToken');
+      console.log(authToken);
+      const response = await authTokenCheck(authToken);
+      console.log(response.status);
+      response.status === 200 && setIsAuthenticated(true)
+      console.log(isAuthenticated);
+      return response;
+    } catch (error) {
+      console.error('Error fetching protected data:', error);
+      throw error;
+    }
+  }
+
+  const logout = () => {
+    localStorage.removeItem('authToken');
+    setIsAuthenticated(false);
   };
 
 
@@ -136,6 +159,9 @@ export const NoteProvider = ({ children }) => {
     addTagToNote,
     removeTagFromNote,
     login,
+    fetchProtectedData,
+    isAuthenticated,
+    logout,
   };
 
   return <NoteContext.Provider value={contextValue}>{children}</NoteContext.Provider>;

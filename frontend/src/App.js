@@ -1,9 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Home from './views/Home/Home';
 import NotFound from './views/NotFound/NotFound';
 import ArchivedNotes from './components/ArchivedNotes/ArchivedNotes.jsx';
-import { NoteProvider } from './context/NoteContext';
+import { NoteProvider, useNoteContext } from './context/NoteContext';
 import LoginComponent from './components/LoginComponent/LoginComponent';
 
 function App() {
@@ -11,16 +11,36 @@ function App() {
     <Router>
       <NoteProvider>
         <Routes>
-          <Route exact path="/" element={<LoginComponent />} />
-          <Route exact path="/home" element={<Home />} />
-
-          <Route exact path="/archived" element={<ArchivedNotes />} />
-          <Route exact path="*" element={<NotFound />} />
-          
+          {/* Use a wrapper route to handle authentication check */}
+          <Route
+            path="/"
+            element={<LoginComponent />}
+          />
+          <Route
+            path="/home"
+            element={<AuthWrapper element={<Home />} />}
+          />
+          <Route
+            path="/archived"
+            element={<AuthWrapper element={<ArchivedNotes />} />}
+          />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </NoteProvider>
     </Router>
   );
 }
+
+// Wrapper component to check authentication status
+const AuthWrapper = ({ element }) => {
+  const { isAuthenticated } = useNoteContext();
+
+  // Redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return <Navigate to="/" />;
+  }
+
+  return element;
+};
 
 export default App;

@@ -1,4 +1,4 @@
-// LoginComponent.jsx
+
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useNoteContext } from '../../context/NoteContext';
@@ -7,7 +7,7 @@ import './LoginComponent.css';
 
 
 const LoginComponent = () => {
-  const { login } = useNoteContext();
+  const { login, fetchProtectedData, isAuthenticated } = useNoteContext();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,8 +17,10 @@ const LoginComponent = () => {
   const handleLogin = async () => {
     try {
       const response = await login(username, password);
+
+      const lo  = await fetchProtectedData();
+      console.log(isAuthenticated)
       navigate('/Home');
-      console.log(response)
     } catch (error) {
       setError('Invalid credentials. Please try again.');
     }

@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import CreateNote from '../../components/CreateNote/CreateNote';
 import NoteList from '../../components/NoteList/NoteList';
 import EditNote from '../../components/EditNote/EditNote';
@@ -10,17 +9,22 @@ import './Home.css';
 
 
 const Home = () => {
-  const { notes, getNotes, startEditingNote, stopEditingNote, editNoteId } = useNoteContext();
+  const { logout, startEditingNote, stopEditingNote, editNoteId } = useNoteContext();
 
   const handleEdit = (noteId) => {
     startEditingNote(noteId);
   };
 
-
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <div className={"HomeContainer"}>
       <h1>Notes App</h1>
+      <button onClick={handleLogout} className="logout-button">
+          Logout
+        </button>
       {editNoteId ? (
         <EditNote onClose={stopEditingNote} />
       ) : (
