@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://notes-app-api1.onrender.com//api', 
+  baseURL: 'https://notes-app-api1.onrender.com/api', 
 });
 
 export const createNote = async (data) => {
