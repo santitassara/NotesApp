@@ -16,10 +16,10 @@ const LoginComponent = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await login(username, password);
+       await login(username, password);
 
-      const lo  = await fetchProtectedData();
-      console.log(isAuthenticated)
+      await fetchProtectedData();
+      
       navigate('/Home');
     } catch (error) {
       setError('Invalid credentials. Please try again.');

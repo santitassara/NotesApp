@@ -91,7 +91,7 @@ export const login = async (username, password) => {
 
 export const fetchProtectedData = async (authToken) => {
   try {
-    //const authToken = localStorage.getItem('authToken');
+    
     const response = await api.get('/auth/protected', {
       headers: {
         'x-auth-token': `${authToken}`,

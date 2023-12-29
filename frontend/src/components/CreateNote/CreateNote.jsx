@@ -21,7 +21,7 @@ const CreateNote = () => {
   };
 
   const handleCreateNote = async () => {
-    console.log(title)
+    
     try {
       const newData = { title, content, tags: selectedTags };
       await createNote(newData);

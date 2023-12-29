@@ -69,7 +69,7 @@ const NoteList = ({ onEdit }) => {
   const handleFilterByTag = (tag) => {
     setFilterTag(tag);
     const filtered = notes.filter(note => note.tags && note.tags.includes(tag) && note.status === 'active');
-    console.log(filtered)
+    
     setFilteredNotes(filtered);
   };
 

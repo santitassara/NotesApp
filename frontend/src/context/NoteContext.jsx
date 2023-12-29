@@ -98,7 +98,7 @@ export const NoteProvider = ({ children }) => {
     try {
       await addTag(noteId, tagName);
     
-     // getNotes();
+   
     } catch (error) {
       console.error('Error adding tag to note:', error);
     }
@@ -117,7 +117,7 @@ export const NoteProvider = ({ children }) => {
     try {
       const response = await loginUser(username, password);
       localStorage.setItem('authToken', response.token);
-      //return response;
+     
     } catch (error) {
       console.error('Error logging in:', error);
       throw error;
@@ -127,11 +127,11 @@ export const NoteProvider = ({ children }) => {
   const fetchProtectedData = async () => {
     try {
       const authToken = localStorage.getItem('authToken');
-      console.log(authToken);
+     
       const response = await authTokenCheck(authToken);
-      console.log(response.status);
+      
       response.status === 200 && setIsAuthenticated(true)
-      console.log(isAuthenticated);
+      
       return response;
     } catch (error) {
       console.error('Error fetching protected data:', error);
