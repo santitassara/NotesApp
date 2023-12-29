@@ -8,6 +8,7 @@ import { getNotes as fetchNotes,
   unarchiveNote as unarchive,
   addTagToNote as addTag,
   removeTagFromNote as removeTag,
+  login as loginUser,
     } from '../services/api';
 
 const NoteContext = createContext();
@@ -109,6 +110,16 @@ export const NoteProvider = ({ children }) => {
     }
   };
   
+  const login = async (username, password) => {
+    try {
+      const response = await loginUser(username, password);
+      // Puedes manejar la respuesta según tus necesidades (por ejemplo, almacenar el token en el estado).
+      return response;
+    } catch (error) {
+      console.error('Error logging in:', error);
+      throw error;
+    }
+  };
 
 
   const contextValue = {
@@ -124,6 +135,7 @@ export const NoteProvider = ({ children }) => {
     unarchiveNote,
     addTagToNote,
     removeTagFromNote,
+    login,
   };
 
   return <NoteContext.Provider value={contextValue}>{children}</NoteContext.Provider>;
