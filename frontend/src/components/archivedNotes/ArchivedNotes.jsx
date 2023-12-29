@@ -36,7 +36,7 @@ const ArchivedNotes = () => {
           </div>
         ))}
       </div>
-      <Link to="/Home">
+      <Link to="/">
         <button className={'backButton'}>Back</button>
       </Link>
     </div>
